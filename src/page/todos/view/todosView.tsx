@@ -2,7 +2,8 @@ import { Filters } from '@shared/ui/filters/filters';
 import s from './todosView.module.scss';
 import { useAddTodo } from '@shared/hooks/useAddTodo';
 import { Todos } from '@shared/ui/todos/todos';
-import { KeyboardEvent } from 'react';
+import { KeyboardEvent, useEffect } from 'react';
+import initialTodos from '@shared/data/todos.json';
 
 type TProps = {
   title?: string;
@@ -10,7 +11,11 @@ type TProps = {
 }
 
 export const TodosView = ({title = 'todos', actionName = 'Clear completed'}: TProps) => {
-  const { todos, addTodo, clearTodos } = useAddTodo();
+  const { todos, addTodo, clearTodos, setInitialTodos } = useAddTodo();
+
+  useEffect(() => {
+    setInitialTodos(initialTodos);
+  }, [])
 
   const addNewTask = (task: string) => {
     addTodo(task);
