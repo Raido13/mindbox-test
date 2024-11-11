@@ -44,7 +44,10 @@ export const TodosView = ({title = 'todos', clearActionName = 'Clear completed'}
             placeholder='What needs to be done?'
             className={s.todosView__input}
             onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => {
-              if (e.key === 'Enter' && e.currentTarget.value !== '') addNewTask(e.currentTarget.value)
+              if (e.key === 'Enter' && e.currentTarget.value !== '') {
+                addNewTask(e.currentTarget.value);
+                e.currentTarget.value = '';
+              }
             }}
           />
         </div>

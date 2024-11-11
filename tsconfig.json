@@ -1,17 +1,43 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "strict": true,
+    /* Compilation Target and Module */
+    "target": "ES2022",
+    "module": "ESNext",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+
+    /* Resolution and Bundling */
+    "moduleResolution": "Bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "resolveJsonModule": true,
+    
+    /* JSX and Compatibility */
+    "jsx": "react-jsx",
     "esModuleInterop": true,
-    "jsx": "react",
+
+    /* Linting and Strictness */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+
+    /* Emit */
+    "noEmit": true,
+
+    /* Path Aliases */
+    "baseUrl": "./",
+    "paths": {
+      "@shared/*": ["src/shared/*"]
+    }
   },
+
   "include": [
     "src",
-    "src/**/*.json"
-  ],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "vite.config.ts"
   ]
 }

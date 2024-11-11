@@ -1,4 +1,4 @@
-import icons from '../assets/icons/icons.svg'
+import icons from '@shared/ui/assets/icons/icons.svg';
 import { SVGProps } from 'react';
 
 export type TIcon = SVGProps<SVGSVGElement> & {

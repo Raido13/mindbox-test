@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { ITodo } from "../../types/todo";
-import { v4 as uuidv4 } from 'uuid';
+import { ITodo } from "@shared/types/todo";
+import { nanoid } from "nanoid";
 
 export const useAddTodo = () => {
   const [todos, setTodos] = useState<ITodo[]>([]);
 
   const addTodo = (newTask: string) => {
     const newTodo = {
-      id: uuidv4(),
+      id: global.__IS_TEST__ ? 'mocked-nanoid-id' : nanoid(),
       task: newTask,
       status: 'Active'
     }

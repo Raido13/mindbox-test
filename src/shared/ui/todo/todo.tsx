@@ -1,4 +1,4 @@
-import { ITodo } from "../../../types/todo";
+import { ITodo } from '@shared/types/todo';
 import { Icon } from "../icons/icons";
 import s from './todo.module.scss';
 import cn from 'classnames';

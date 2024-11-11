@@ -1,4 +1,4 @@
-import { ITodo } from "../../../types/todo";
+import { ITodo } from "@shared/types/todo";
 import { Todo } from "../todo/todo";
 import s from './todos.module.scss';
 
