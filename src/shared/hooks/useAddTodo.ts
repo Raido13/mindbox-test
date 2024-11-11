@@ -9,7 +9,7 @@ export const useAddTodo = () => {
     const newTodo = {
       id: uuidv4(),
       task: newTask,
-      status: false
+      status: 'Active'
     }
     setTodos([...todos, newTodo])
   }
@@ -19,9 +19,14 @@ export const useAddTodo = () => {
   };
 
   const clearTodos = () => {
-    const updatedTodos = todos.map(todo => ({ ...todo, completed: false }));
+    const updatedTodos = todos.map(t => ({ ...t, status: 'Active' }));
     setTodos(updatedTodos);
   };
 
-  return { todos, addTodo, clearTodos, setInitialTodos }
+  const toggleTodoStatus = (id: string) => {
+    const updatedTodos = todos.map(t => t.id === id ? { ...t, status: t.status === 'Active' ? 'Completed' : 'Active' } : t);
+    setTodos(updatedTodos);
+  }
+
+  return { todos, addTodo, clearTodos, setInitialTodos, toggleTodoStatus }
 }

@@ -2,16 +2,16 @@
   {
       "id": "1",
       "task": "Тестовое задание",
-      "status": false
+      "status": "Active"
   },
   {
       "id": "2",
       "task": "Прекрасный код",
-      "status": true
+      "status": "Completed"
   },
   {
       "id": "3",
       "task": "Покрытие тестами",
-      "status": false
+      "status": "Active"
   }
 ]

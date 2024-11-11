@@ -1,0 +1,43 @@
+@use '../../../shared/mixins.scss' as mixins;
+
+.todo {
+  @include mixins.reset;
+
+  border-bottom: 1px solid var(--border-color);
+
+  &__status {
+    @include mixins.reset;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border-color); 
+    border-radius: 50%;
+  }
+
+  &__input {
+    position: absolute;
+    appearance: none;
+    background-color: transparent;
+    z-index: -1;
+  }
+
+  &__task {
+    display: flex;
+    align-items: center;
+    column-gap: 15px;
+    padding: 10px;
+    font-size: var(--font-size-medium);
+    line-height: var(--line-height-medium);
+    font-weight: 400;
+    color: var(--active-text-color);
+    cursor: pointer;
+
+    &__active {
+      color: var(--inactive-text-color);
+      text-decoration: line-through;
+    }
+  }
+}

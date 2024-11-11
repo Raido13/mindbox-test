@@ -7,8 +7,8 @@ type TProps = {
   activeFilter: string;
 }
 
-export const Filter = ({value, setCurrent, activeFilter}: TProps) => {
+export const Filter = ({ value, setCurrent, activeFilter }: TProps) => {
   return (
-    <li className={cn(s.filter, activeFilter && s.filter__active)} onClick={() => setCurrent(value)}>{value}</li>
+    <li data-testid={`filter-${value}`} className={cn(s.filter, activeFilter === value && s.filter__active)} onClick={() => setCurrent(value)}>{value}</li>
   )
 }

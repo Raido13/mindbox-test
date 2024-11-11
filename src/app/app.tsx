@@ -3,6 +3,6 @@ import { Layout } from "../shared/ui/layout/layout"
 
 export const App = () => {
   return (
-    <Layout header={true} title="mindbox-test" children={<Todos />} />
+    <Layout header={true} children={<Todos />} />
   )
 }

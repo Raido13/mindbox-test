@@ -1,0 +1,21 @@
+@use '../../../shared/mixins.scss' as mixins;
+@use '../../../shared/global.scss';
+
+.root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.header {
+  @include mixins.reset;
+  
+  &__title {
+    @include mixins.reset;
+    font-size: var(--font-size-medium);
+    line-height: var(--line-height-medium);
+    font-weight: 400;
+    text-align: center;
+  }
+}

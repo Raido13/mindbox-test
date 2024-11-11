@@ -1,0 +1,14 @@
+@use '../../mixins.scss' as mixins;
+
+.filters {
+  @include mixins.reset;
+  
+  display: flex;
+  column-gap: 10px;
+  list-style-type: none;
+  background-color: var(--list-bg-color);
+
+  @include mixins.respondTo(small) {
+    column-gap: 2px;
+  }
+}

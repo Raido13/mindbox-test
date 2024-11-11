@@ -1,0 +1,8 @@
+@use '../../mixins.scss' as mixins;
+
+.todos {
+  @include mixins.reset;
+
+  list-style-type: none;
+  background-color: var(--list-bg-color);
+}
