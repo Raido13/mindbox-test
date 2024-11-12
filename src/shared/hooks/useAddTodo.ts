@@ -7,7 +7,7 @@ export const useAddTodo = () => {
 
   const addTodo = (newTask: string) => {
     const newTodo = {
-      id: global.__IS_TEST__ ? 'mocked-nanoid-id' : nanoid(),
+      id: nanoid(),
       task: newTask,
       status: 'Active'
     }

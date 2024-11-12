@@ -13,7 +13,7 @@ export const Todo = ({ todo, toggleTodoStatus }: TodoProps) => {
     <li className={s.todo}>
       <label className={cn(s.todo__task, todo.status === 'Completed' && s.todo__task__active)}>
         <span className={cn(s.todo__status, todo.status === 'Active' && s.todo__status__active)}>
-          {todo.status === 'Completed' && <Icon iconName="checkbox" height={24} width={24} />}
+          {todo.status === 'Completed' && <Icon iconName="checkbox" style={{ width: '24px', height: '24px', fill: 'currentColor' }} />}
           <input data-testid={`checkbox`} className={s.todo__input} type="checkbox" checked={todo.status === 'Completed'} onChange={() => toggleTodoStatus(todo.id)} />
         </span>
         {todo.task}
