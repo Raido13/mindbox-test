@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
     /* Compilation Target and Module */
-    "target": "ES2022",
+    "target": "ESNext",
     "module": "ESNext",
     "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "types": ["cypress", "@testing-library/cypress"],
 
     /* Resolution and Bundling */
-    "moduleResolution": "Bundler",
+    "moduleResolution": "Node",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",
@@ -34,10 +35,15 @@
     }
   },
 
+  "ts-node": {
+    "esm": true
+  },
+
   "include": [
     "src",
     "src/**/*.ts",
     "src/**/*.tsx",
+    "./src/cypress.d.ts",
     "vite.config.ts"
   ]
 }
