@@ -37,7 +37,7 @@ export const TodosView = ({title = 'todos', clearActionName = 'Clear completed'}
       </div>
       <div className={s.todosView__container}>
         <div className={s.todosView__inputContainer}>
-          <Icon iconName='arrow' height={24} width={24} className={s.todosView__input__icon} />
+          <Icon iconName='arrow' height={24} width={24} style={{ width: '24px', height: '24px', fill: 'currentColor' }} className={s.todosView__input__icon} />
           <input
             data-testid='field'
             type="text"

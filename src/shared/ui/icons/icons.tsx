@@ -1,12 +1,28 @@
-import icons from '@shared/ui/assets/icons/icons.svg';
+import arrowIcon from '@shared/ui/assets/icons/arrow.svg?url';
+import checkboxIcon from '@shared/ui/assets/icons/checkbox.svg?url';
 import { SVGProps } from 'react';
+import { ReactSVG } from "react-svg";
 
 export type TIcon = SVGProps<SVGSVGElement> & {
-  iconName: string;
+  iconName: 'arrow' | 'checkbox';
+  width?: string | number;
+  height?: string | number;
+  style?: React.CSSProperties;
+  className?: string;
 };
 
-export const Icon = ({ iconName, ...props }: TIcon) => (
-  <svg {...props}>
-    <use href={`${icons}#${iconName}`} />
-  </svg>
-);
+const iconMap = {
+  arrow: arrowIcon,
+  checkbox: checkboxIcon,
+};
+
+export const Icon = ({ iconName, width, height, style, className }: TIcon) => {
+  const svgIconPath = iconMap[iconName];
+
+  return (
+    <ReactSVG src={svgIconPath} className={className} beforeInjection={(svg) => {
+      if (width) svg.setAttribute('width', width.toString());
+      if (height) svg.setAttribute('height', height.toString());
+    }} style={style} />
+  )
+}
