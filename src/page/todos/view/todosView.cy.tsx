@@ -1,4 +1,3 @@
-import React from 'react';
 import { TodosView } from './todosView';
 import initialTodos from '@shared/data/todos.json';
 import { ITodo } from '@shared/types/todo';

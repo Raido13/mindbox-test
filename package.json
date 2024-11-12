@@ -3,10 +3,11 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://raido13.github.io/mindbox-test/",
+  "homepage": "./",
   "scripts": {
     "start": "vite",
     "build": "tsc -b && vite build",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "lint": "eslint .",
     "preview": "vite preview",
