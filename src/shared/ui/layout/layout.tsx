@@ -1,12 +1,11 @@
-import { ReactNode } from "react";
+import { PropsWithChildren } from "react";
 import { Header } from "../header/header";
 import s from './layout.module.scss';
 
-type TProps = {
-  children?: ReactNode;
+type TProps = PropsWithChildren<{
   header?: boolean;
   title?: string;
-}
+}>
 
 export const Layout = ({children, header = false, title}: TProps) => {
   return (

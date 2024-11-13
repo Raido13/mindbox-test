@@ -1,11 +1,16 @@
-import { TodosView } from './todosView';
-import initialTodos from '@shared/data/todos.json';
+import { Todos } from './todos';
+import rawTodos from '@shared/data/todos.json';
+import { TaskStatus } from '@shared/enums/taskStatus';
 import { ITodo } from '@shared/types/todo';
 import { nanoid } from 'nanoid';
 
 const TEST_TASK = 'Test Task';
 
 describe('TodosView Component', () => {
+
+  const initialTodos: ITodo[] = (rawTodos as { id: string, task: string, status: string }[]).map(t => (
+    { ...t, status: t.status as TaskStatus}
+  ));
 
   const addNewTask = (task: string) => {
     const field = cy.get(`input[data-testid="field"]`);
@@ -14,7 +19,7 @@ describe('TodosView Component', () => {
 
   beforeEach(() => {
     cy.stub({ nanoid }, 'nanoid').returns('mocked-nanoid-id');
-    cy.mount(<TodosView />)
+    cy.mount(<Todos />)
   })
 
   it('Add new task', () => {
@@ -25,7 +30,7 @@ describe('TodosView Component', () => {
 
   it('Count tasks left', () => {
     cy.get(`[data-testid="counter"]`).contains(/^\d+ items left$/).invoke('text').then((initialCounterText) => {
-      const activeTodosCount = initialTodos.filter((t) => t.status === 'Active').length;
+      const activeTodosCount = initialTodos.filter((t) => t.status === TaskStatus.Active).length;
       
       expect(initialCounterText).to.equal(`${activeTodosCount} items left`);
       
@@ -45,13 +50,13 @@ describe('TodosView Component', () => {
     cy.get('[data-testid="filter-Active"]').click();
 
     initialTodos.forEach((t: ITodo) => {
-      t.status === 'Active' && cy.get(`[data-testid="checkbox"]`).should('exist').should('be.not.checked')
+      t.status === TaskStatus.Active && cy.get(`[data-testid="checkbox"]`).should('exist').should('be.not.checked')
     });
 
     cy.get('[data-testid="filter-Completed"]').click();
 
     initialTodos.forEach((t: ITodo) => {
-      t.status === 'Completed' && cy.get(`[data-testid="checkbox"]`).should('exist').should('be.checked')
+      t.status === TaskStatus.Completed && cy.get(`[data-testid="checkbox"]`).should('exist').should('be.checked')
     })
   });
 
