@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ITodo } from "@shared/types/todo";
 import { nanoid } from "nanoid";
+import { TaskStatus } from "@shared/enums/taskStatus";
 
 export const useAddTodo = () => {
   const [todos, setTodos] = useState<ITodo[]>([]);
@@ -9,7 +10,7 @@ export const useAddTodo = () => {
     const newTodo = {
       id: nanoid(),
       task: newTask,
-      status: 'Active'
+      status: TaskStatus.Active
     }
     setTodos([...todos, newTodo])
   }
@@ -19,12 +20,12 @@ export const useAddTodo = () => {
   };
 
   const clearTodos = () => {
-    const updatedTodos = todos.map(t => ({ ...t, status: 'Active' }));
+    const updatedTodos = todos.map(t => ({ ...t, status: TaskStatus.Active }));
     setTodos(updatedTodos);
   };
 
   const toggleTodoStatus = (id: string) => {
-    const updatedTodos = todos.map(t => t.id === id ? { ...t, status: t.status === 'Active' ? 'Completed' : 'Active' } : t);
+    const updatedTodos = todos.map(t => t.id === id ? { ...t, status: t.status === TaskStatus.Active ? TaskStatus.Completed : TaskStatus.Active } : t);
     setTodos(updatedTodos);
   }
 

@@ -12,3 +12,21 @@
     column-gap: 2px;
   }
 }
+
+.filter {
+  @include mixins.reset;
+  padding: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid transparent;
+
+  &__active {
+    border-color: var(--border-color);
+  }
+
+  &:hover {
+    background: var(--hover-bg-color);
+    color: var(--white-text-color);
+    border: 1px solid transparent;
+  }
+}
