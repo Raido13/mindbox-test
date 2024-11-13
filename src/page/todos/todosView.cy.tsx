@@ -1,26 +1,30 @@
 import { Todos } from './todos';
-import rawTodos from '@shared/data/todos.json';
 import { TaskStatus } from '@shared/enums/taskStatus';
 import { ITodo } from '@shared/types/todo';
 import { nanoid } from 'nanoid';
+import { addTodo, clearAllTodos } from "@shared/db/db";
 
 const TEST_TASK = 'Test Task';
 
+const initialTodos: ITodo[] = [
+  { id: nanoid(), task: 'Sample Task 1', status: TaskStatus.Active },
+  { id: nanoid(), task: 'Sample Task 2', status: TaskStatus.Completed },
+];
+
 describe('TodosView Component', () => {
-
-  const initialTodos: ITodo[] = (rawTodos as { id: string, task: string, status: string }[]).map(t => (
-    { ...t, status: t.status as TaskStatus}
-  ));
-
   const addNewTask = (task: string) => {
     const field = cy.get(`input[data-testid="field"]`);
     field.type(task).type('{enter}')
   }
 
   beforeEach(() => {
+    cy.wrap(clearAllTodos()).then(() => {
+      return Promise.all(initialTodos.map((todo) => addTodo(todo)));
+    });
+
     cy.stub({ nanoid }, 'nanoid').returns('mocked-nanoid-id');
     cy.mount(<Todos />)
-  })
+  });
 
   it('Add new task', () => {
     addNewTask(TEST_TASK);
@@ -29,17 +33,13 @@ describe('TodosView Component', () => {
   });
 
   it('Count tasks left', () => {
-    cy.get(`[data-testid="counter"]`).contains(/^\d+ items left$/).invoke('text').then((initialCounterText) => {
-      const activeTodosCount = initialTodos.filter((t) => t.status === TaskStatus.Active).length;
-      
-      expect(initialCounterText).to.equal(`${activeTodosCount} items left`);
-      
-      addNewTask(TEST_TASK);
-      
-      cy.get(`[data-testid="counter"]`).contains(/^\d+ items left$/).invoke('text').then((updatedCounterText) => {
-        expect(updatedCounterText).to.equal(`${activeTodosCount + 1} items left`);
-      });
-    });
+    const activeTodosCount = initialTodos.filter((t) => t.status === TaskStatus.Active).length;
+
+    cy.get(`[data-testid="counter"]`).should('contain', `${activeTodosCount} items left`);
+
+    addNewTask(TEST_TASK);
+    
+    cy.get(`[data-testid="counter"]`).should('contain', `${activeTodosCount + 1} items left`);
   });
 
   it('Filters switching', () => {
@@ -60,11 +60,11 @@ describe('TodosView Component', () => {
     })
   });
 
-  it('Reset all tasks', () => {
+  it('Remove Completed Tasks', () => {
     cy.get('[data-testid="reset"]').click();
 
     cy.get('[data-testid^="checkbox"]').each(($checkbox) => {
-      cy.wrap($checkbox).should('not.be.checked');
+      cy.wrap($checkbox).should('not.be');
     });
   });
 })

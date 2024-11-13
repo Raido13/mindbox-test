@@ -1,8 +1,7 @@
 import { Filters } from '@shared/ui/filters/filters';
 import s from './todosView.module.scss';
-import { useAddTodo } from '@shared/hooks/useAddTodo';
 import { Todos } from '@shared/ui/todos/todos';
-import { KeyboardEvent, useEffect, useMemo, useState } from 'react';
+import { KeyboardEvent, useMemo, useState } from 'react';
 import { Icon } from '@shared/ui/icons/icons';
 import { Filters as FiltersEnum } from '@shared/enums/filters';
 import { TaskStatus } from '@shared/enums/taskStatus';
@@ -11,16 +10,14 @@ import { ITodo } from '@shared/types/todo';
 type TProps = {
   title?: string;
   clearActionName?: string;
-  initialTodos: ITodo[];
+  todos: ITodo[];
+  addTodo: (task: string) => void;
+  clearTodos: () => void;
+  toggleTodoStatus: (id: string) => void;
 }
 
-export const TodosView = ({title = 'todos', clearActionName = 'Clear completed', initialTodos }: TProps) => {
+export const TodosView = ({title = 'todos', clearActionName = 'Clear completed', todos, addTodo, clearTodos, toggleTodoStatus }: TProps) => {
   const [activeFilter, setActiveFilter] = useState<string>(FiltersEnum.All);
-  const { todos, addTodo, clearTodos, setInitialTodos, toggleTodoStatus } = useAddTodo();
-
-  useEffect(() => {
-    setInitialTodos(initialTodos);
-  }, [])
 
   const counterLeft = useMemo(() => todos.reduce((c, t) => t.status === TaskStatus.Active ? ++c : c, 0), [todos]);
   const filteredTodos = useMemo(() => activeFilter !== FiltersEnum.All ? todos.filter(t => t.status === activeFilter) : todos, [activeFilter, todos])

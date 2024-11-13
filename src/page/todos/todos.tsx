@@ -1,15 +1,10 @@
+import { useAddTodo } from "@shared/hooks/useAddTodo";
 import { TodosView } from "./view/todosView";
-import rawTodos from '@shared/data/todos.json';
-import { ITodo } from '@shared/types/todo';
-import { TaskStatus } from '@shared/enums/taskStatus';
 
 export const Todos = () => {
-
-  const initialTodos: ITodo[] = (rawTodos as { id: string, task: string, status: string }[]).map(t => (
-    { ...t, status: t.status as TaskStatus}
-  ));
+  const { todos, addTodo, clearTodos, toggleTodoStatus } = useAddTodo();
 
   return (
-    <TodosView initialTodos={initialTodos} />
+    <TodosView todos={todos} addTodo={addTodo} clearTodos={clearTodos} toggleTodoStatus={toggleTodoStatus} />
   )
 }
