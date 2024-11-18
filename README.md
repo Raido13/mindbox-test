@@ -1,6 +1,6 @@
 ## Что это?
 
-Тестовое задание MindBox
+[Тестовое задание MindBox](https://docs.google.com/document/d/1zoTB6WO1aXGUjMpXcyhAWAHHl-tStGdZYUWSKtVthH8/edit?usp=drivesdk)
 
 ## Как запустить проект локально
 
