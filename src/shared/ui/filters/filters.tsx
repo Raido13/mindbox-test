@@ -17,12 +17,12 @@ type FiltersProps = {
 export const Filters = ({ activeFilter, setActiveFilter }: FiltersProps) => {
   const setCurrentFilter = useCallback((filter: string) => {
     setActiveFilter(filter)
-  }, []);
+  }, [setActiveFilter]);
 
   const filtersList = useMemo(() =>
     defaultFilters.map((f, i) => 
       <Filter value={f.value} setCurrent={setCurrentFilter} activeFilter={activeFilter} key={i} />),
-    [defaultFilters]
+    [setActiveFilter, activeFilter]
   );
 
   return (

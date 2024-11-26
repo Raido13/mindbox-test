@@ -22,29 +22,33 @@ export const useAddTodo = () => {
       task: newTask,
       status: TaskStatus.Active
     }
-    setTodos([...todos, newTodo]);
+    setTodos(prevTodos => [...prevTodos, newTodo]);
 
     await addTodoToDB(newTodo);
   }, []);
 
   const clearTodos = useCallback(async () => {
-    const activeTodos = todos.filter(t => t.status === TaskStatus.Active);
-    const completedTodos = todos.filter(t => t.status === TaskStatus.Completed);
+    setTodos(prevTodos => {
+      const activeTodos = prevTodos.filter(t => t.status === TaskStatus.Active);
+      const completedTodos = prevTodos.filter(t => t.status === TaskStatus.Completed);
     
-    setTodos(activeTodos);
+      Promise.all(completedTodos.map(t => deleteTodo(t.id)));
 
-    await Promise.all(completedTodos.map(t => deleteTodo(t.id)));
+      return activeTodos
+    })
   }, []);
 
   const toggleTodoStatus = useCallback(async (id: string) => {
-    const updatedTodos = todos.map(t => t.id === id ? { ...t, status: t.status === TaskStatus.Active ? TaskStatus.Completed : TaskStatus.Active } : t);
-    const updatedTodo = updatedTodos.find(t => t.id === id);
-    
-    setTodos(updatedTodos);
+    setTodos(prevTodos => {
+      const updatedTodos = prevTodos.map(t => t.id === id ? { ...t, status: t.status === TaskStatus.Active ? TaskStatus.Completed : TaskStatus.Active } : t);
+      const updatedTodo = updatedTodos.find(t => t.id === id);
 
-    if (updateTodo) {
-      await updateTodo(updatedTodo as ITodo)
-    }
+      if (updateTodo && updatedTodos) {
+        updateTodo(updatedTodo as ITodo)
+      }
+
+      return updatedTodos
+    })
   }, []);
 
   return { todos, addTodo, clearTodos, toggleTodoStatus }

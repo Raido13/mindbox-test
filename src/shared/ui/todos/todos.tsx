@@ -13,7 +13,7 @@ interface TodosProps {
 export const Todos = ({ todosData, toggleTodoStatus }: TodosProps) => {
   const todosList = useMemo(() =>
     todosData.map(t => <Todo todo={t} toggleTodoStatus={toggleTodoStatus} key={t.id} />),
-    [todosData]
+    [todosData, toggleTodoStatus]
   );
 
   return (

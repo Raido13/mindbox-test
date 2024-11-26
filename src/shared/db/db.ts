@@ -48,6 +48,10 @@ export const getTodos = async () => {
 }
 
 export const updateTodo = async (todo: ITodo) => {
+  if (!todo.id) {
+    throw new Error("'id' field missing from Todo object");
+  }
+
   const db = await openDB();
   const tx = db.transaction(STORE_NAME, 'readwrite');
   const store = tx.objectStore(STORE_NAME);
