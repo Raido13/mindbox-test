@@ -1,3 +1,4 @@
+import React, { useMemo } from "react";
 import { ITodo } from "@shared/types/todo";
 import s from './todos.module.scss';
 import { Icon } from "../icons/icons";
@@ -10,9 +11,14 @@ interface TodosProps {
 }
 
 export const Todos = ({ todosData, toggleTodoStatus }: TodosProps) => {
+  const todosList = useMemo(() =>
+    todosData.map(t => <Todo todo={t} toggleTodoStatus={toggleTodoStatus} key={t.id} />),
+    [todosData, toggleTodoStatus]
+  );
+
   return (
     <ul className={s.todos}>
-      {todosData.map(t => <Todo todo={t} toggleTodoStatus={toggleTodoStatus} key={t.id} />)}
+      {todosList}
     </ul>
   )
 }
@@ -22,7 +28,7 @@ interface TodoProps {
   toggleTodoStatus: (id: string) => void;
 }
 
-const Todo = ({ todo, toggleTodoStatus }: TodoProps) => {
+const Todo = React.memo(({ todo, toggleTodoStatus }: TodoProps) => {
   return (
     <li className={s.todo}>
       <label className={cn(s.todo__task, todo.status === TaskStatus.Completed && s.todo__task__completed)}>
@@ -34,4 +40,4 @@ const Todo = ({ todo, toggleTodoStatus }: TodoProps) => {
       </label>
     </li>
   )
-}
+})
