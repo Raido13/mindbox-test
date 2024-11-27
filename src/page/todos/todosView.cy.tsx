@@ -1,20 +1,20 @@
 import { Todos } from './todos';
-import { TaskStatus } from '@shared/enums/taskStatus';
+import { TodoStatus } from '@shared/enums/todoStatus';
 import { ITodo } from '@shared/types/todo';
 import { nanoid } from 'nanoid';
 import { addTodo, clearAllTodos } from "@shared/db/db";
 
-const TEST_TASK = 'Test Task';
+const TEST_TODO = 'Test Todo';
 
 const initialTodos: ITodo[] = [
-  { id: nanoid(), task: 'Sample Task 1', status: TaskStatus.Active },
-  { id: nanoid(), task: 'Sample Task 2', status: TaskStatus.Completed },
+  { id: nanoid(), todo: 'Sample Todo 1', status: TodoStatus.Active },
+  { id: nanoid(), todo: 'Sample Todo 2', status: TodoStatus.Completed },
 ];
 
 describe('TodosView Component', () => {
-  const addNewTask = (task: string) => {
+  const addNewTodo = (todo: string) => {
     const field = cy.get(`input[data-testid="field"]`);
-    field.type(task).type('{enter}')
+    field.type(todo).type('{enter}')
   }
 
   beforeEach(() => {
@@ -26,18 +26,18 @@ describe('TodosView Component', () => {
     cy.mount(<Todos />)
   });
 
-  it('Add new task', () => {
-    addNewTask(TEST_TASK);
+  it('Add new todo', () => {
+    addNewTodo(TEST_TODO);
 
-    cy.get("label").contains(TEST_TASK);
+    cy.get("label").contains(TEST_TODO);
   });
 
-  it('Count tasks left', () => {
-    const activeTodosCount = initialTodos.filter((t) => t.status === TaskStatus.Active).length;
+  it('Count todos left', () => {
+    const activeTodosCount = initialTodos.filter((t) => t.status === TodoStatus.Active).length;
 
     cy.get(`[data-testid="counter"]`).should('contain', `${activeTodosCount} items left`);
 
-    addNewTask(TEST_TASK);
+    addNewTodo(TEST_TODO);
     
     cy.get(`[data-testid="counter"]`).should('contain', `${activeTodosCount + 1} items left`);
   });
@@ -50,17 +50,17 @@ describe('TodosView Component', () => {
     cy.get('[data-testid="filter-Active"]').click();
 
     initialTodos.forEach((t: ITodo) => {
-      t.status === TaskStatus.Active && cy.get(`[data-testid="checkbox"]`).should('exist').should('be.not.checked')
+      t.status === TodoStatus.Active && cy.get(`[data-testid="checkbox"]`).should('exist').should('be.not.checked')
     });
 
     cy.get('[data-testid="filter-Completed"]').click();
 
     initialTodos.forEach((t: ITodo) => {
-      t.status === TaskStatus.Completed && cy.get(`[data-testid="checkbox"]`).should('exist').should('be.checked')
+      t.status === TodoStatus.Completed && cy.get(`[data-testid="checkbox"]`).should('exist').should('be.checked')
     })
   });
 
-  it('Remove Completed Tasks', () => {
+  it('Remove Completed Todos', () => {
     cy.get('[data-testid="reset"]').click();
 
     cy.get('[data-testid^="checkbox"]').each(($checkbox) => {

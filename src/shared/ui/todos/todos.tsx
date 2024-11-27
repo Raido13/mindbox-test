@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { ITodo } from "@shared/types/todo";
 import s from './todos.module.scss';
 import { Icon } from "../icons/icons";
-import { TaskStatus } from '@shared/enums/taskStatus';
+import { TodoStatus } from '@shared/enums/todoStatus';
 import cn from 'classnames';
 
 interface TodosProps {
@@ -31,12 +31,12 @@ interface TodoProps {
 const Todo = React.memo(({ todo, toggleTodoStatus }: TodoProps) => {
   return (
     <li className={s.todo}>
-      <label className={cn(s.todo__task, todo.status === TaskStatus.Completed && s.todo__task__completed)}>
-        <span className={cn(s.todo__status, todo.status === TaskStatus.Active && s.todo__status__active)}>
-          {todo.status === TaskStatus.Completed && <Icon iconName="checkbox" style={{ width: '24px', height: '24px', fill: 'currentColor' }} />}
-          <input data-testid={`checkbox`} className={s.todo__input} type="checkbox" checked={todo.status === TaskStatus.Completed} onChange={() => toggleTodoStatus(todo.id)} />
+      <label className={cn(s.todo__task, todo.status === TodoStatus.Completed && s.todo__task__completed)}>
+        <span className={cn(s.todo__status, todo.status === TodoStatus.Active && s.todo__status__active)}>
+          {todo.status === TodoStatus.Completed && <Icon iconName="checkbox" style={{ width: '24px', height: '24px', fill: 'currentColor' }} />}
+          <input data-testid={`checkbox`} className={s.todo__input} type="checkbox" checked={todo.status === TodoStatus.Completed} onChange={() => toggleTodoStatus(todo.id)} />
         </span>
-        {todo.task}
+        {todo.todo}
       </label>
     </li>
   )

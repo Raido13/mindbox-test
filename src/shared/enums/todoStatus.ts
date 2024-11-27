@@ -1,4 +1,4 @@
-export enum TaskStatus {
+export enum TodoStatus {
   Active = 'Active',
   Completed = 'Completed',
 }
