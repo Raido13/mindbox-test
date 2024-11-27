@@ -1,3 +1,4 @@
+import React from 'react';
 import { Filters } from '@shared/ui/filters/filters';
 import s from './todosView.module.scss';
 import { Todos } from '@shared/ui/todos/todos';

@@ -43,3 +43,5 @@ const Filter = React.memo(({ value, setCurrent, activeFilter }: FilterProps) => 
     <li data-testid={`filter-${value}`} className={cn(s.filter, activeFilter === value && s.filter__active)} onClick={() => setCurrent(value)}>{value}</li>
   )
 })
+
+Filter.displayName = "Filter";

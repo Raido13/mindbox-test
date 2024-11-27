@@ -1,3 +1,4 @@
+import React from 'react';
 import arrowIcon from '@shared/ui/assets/icons/arrow.svg?url';
 import checkboxIcon from '@shared/ui/assets/icons/checkbox.svg?url';
 import { SVGProps } from 'react';

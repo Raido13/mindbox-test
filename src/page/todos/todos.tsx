@@ -1,7 +1,7 @@
 import { useTodos } from "@shared/hooks/useTodos";
 import { TodosView } from "./view/todosView";
 import { ITodo } from "@shared/types/todo";
-import { createContext } from "react";
+import React, { createContext } from "react";
 
 type TodosContextType = {
   todos: ITodo[];

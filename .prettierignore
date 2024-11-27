@@ -1,0 +1,9 @@
+node_modules/
+dist/
+build
+.prettierrc.js
+.idea
+.env
+docs
+packages
+public

@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react";
+import React, { PropsWithChildren } from "react";
 import { Header } from "../header/header";
 import s from './layout.module.scss';
 

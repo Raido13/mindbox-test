@@ -41,3 +41,5 @@ const Todo = React.memo(({ todo, toggleTodoStatus }: TodoProps) => {
     </li>
   )
 })
+
+Todo.displayName = "Todo";
