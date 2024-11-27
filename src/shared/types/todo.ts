@@ -1,7 +1,7 @@
-import { TaskStatus } from "@shared/enums/taskStatus";
+import { TodoStatus } from "@shared/enums/todoStatus";
 
 export interface ITodo {
   id: string;
-  task: string;
-  status: TaskStatus;
+  todo: string;
+  status: TodoStatus;
 }

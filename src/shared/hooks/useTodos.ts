@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import { ITodo } from "@shared/types/todo";
 import { nanoid } from "nanoid";
-import { TaskStatus } from "@shared/enums/taskStatus";
+import { TodoStatus } from "@shared/enums/todoStatus";
 import { addTodo as addTodoToDB, getTodos, updateTodo, deleteTodo } from "@shared/db/db";
 
-export const useAddTodo = () => {
+export const useTodos = () => {
   const [todos, setTodos] = useState<ITodo[]>([]);
 
   useEffect(() => {
@@ -16,21 +16,21 @@ export const useAddTodo = () => {
     loadTodos()
   }, []);
 
-  const addTodo = useCallback(async (newTask: string) => {
-    const newTodo = {
+  const addTodo = useCallback(async (newTodo: string) => {
+    const todoToBeAdded = {
       id: nanoid(),
-      task: newTask,
-      status: TaskStatus.Active
+      todo: newTodo,
+      status: TodoStatus.Active
     }
-    setTodos(prevTodos => [...prevTodos, newTodo]);
+    setTodos(prevTodos => [...prevTodos, todoToBeAdded]);
 
-    await addTodoToDB(newTodo);
+    await addTodoToDB(todoToBeAdded);
   }, []);
 
   const clearTodos = useCallback(async () => {
     setTodos(prevTodos => {
-      const activeTodos = prevTodos.filter(t => t.status === TaskStatus.Active);
-      const completedTodos = prevTodos.filter(t => t.status === TaskStatus.Completed);
+      const activeTodos = prevTodos.filter(t => t.status === TodoStatus.Active);
+      const completedTodos = prevTodos.filter(t => t.status === TodoStatus.Completed);
     
       Promise.all(completedTodos.map(t => deleteTodo(t.id)));
 
@@ -40,7 +40,7 @@ export const useAddTodo = () => {
 
   const toggleTodoStatus = useCallback(async (id: string) => {
     setTodos(prevTodos => {
-      const updatedTodos = prevTodos.map(t => t.id === id ? { ...t, status: t.status === TaskStatus.Active ? TaskStatus.Completed : TaskStatus.Active } : t);
+      const updatedTodos = prevTodos.map(t => t.id === id ? { ...t, status: t.status === TodoStatus.Active ? TodoStatus.Completed : TodoStatus.Active } : t);
       const updatedTodo = updatedTodos.find(t => t.id === id);
 
       if (updateTodo && updatedTodos) {

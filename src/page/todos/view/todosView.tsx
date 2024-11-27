@@ -4,36 +4,27 @@ import { Todos } from '@shared/ui/todos/todos';
 import { KeyboardEvent, useMemo, useState } from 'react';
 import { Icon } from '@shared/ui/icons/icons';
 import { Filters as FiltersEnum } from '@shared/enums/filters';
-import { TaskStatus } from '@shared/enums/taskStatus';
-import { ITodo } from '@shared/types/todo';
+import { TodoStatus } from '@shared/enums/todoStatus';
+import { useTodosContext } from '@shared/hooks/useTodosContext';
 
-type TProps = {
-  title?: string;
-  clearActionName?: string;
-  todos: ITodo[];
-  addTodo: (task: string) => void;
-  clearTodos: () => void;
-  toggleTodoStatus: (id: string) => void;
-}
-
-export const TodosView = ({title = 'todos', clearActionName = 'Clear completed', todos, addTodo, clearTodos, toggleTodoStatus }: TProps) => {
+export const TodosView = () => {
   const [activeFilter, setActiveFilter] = useState<string>(FiltersEnum.All);
-
-  const counterLeft = useMemo(() => todos.reduce((c, t) => t.status === TaskStatus.Active ? ++c : c, 0), [todos]);
+  const { todos, addTodo, clearTodos, toggleTodoStatus } = useTodosContext();
+  const counterLeft = useMemo(() => todos.reduce((c, t) => t.status === TodoStatus.Active ? ++c : c, 0), [todos]);
   const filteredTodos = useMemo(() => activeFilter !== FiltersEnum.All ? todos.filter(t => t.status === activeFilter) : todos, [activeFilter, todos])
 
-  const addNewTask = (task: string) => {
-    addTodo(task);
+  const addNewTodo = (todo: string) => {
+    addTodo(todo);
   }
 
-  const clearCheckboxes = () => {
+  const removeCompleted = () => {
     clearTodos();
   }
 
   return (
     <div className={s.todosView}>
       <div className={s.todosView__header}>
-        <h2 className={s.todosView__title}>{title}</h2>
+        <h2 className={s.todosView__title}>{'todos'}</h2>
       </div>
       <div className={s.todosView__container}>
         <div className={s.todosView__inputContainer}>
@@ -45,7 +36,7 @@ export const TodosView = ({title = 'todos', clearActionName = 'Clear completed',
             className={s.todosView__input}
             onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => {
               if (e.key === 'Enter' && e.currentTarget.value !== '') {
-                addNewTask(e.currentTarget.value);
+                addNewTodo(e.currentTarget.value);
                 e.currentTarget.value = '';
               }
             }}
@@ -55,7 +46,7 @@ export const TodosView = ({title = 'todos', clearActionName = 'Clear completed',
         <div className={s.todosView__footer}>
           <span data-testid='counter' className={s.todosView__counter}>{`${counterLeft} items left`}</span>
           <Filters setActiveFilter={setActiveFilter} activeFilter={activeFilter} />
-          <button data-testid='reset' className={s.todosView__clearButton} onClick={clearCheckboxes}>{clearActionName}</button>
+          <button data-testid='reset' className={s.todosView__clearButton} onClick={removeCompleted}>{'Clear completed'}</button>
         </div>
       </div>
     </div>
