@@ -2,7 +2,7 @@
 
 .filters {
   @include mixins.reset;
-  
+
   display: flex;
   column-gap: 10px;
   list-style-type: none;

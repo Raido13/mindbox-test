@@ -1,19 +1,17 @@
-import React, { PropsWithChildren } from "react";
-import { Header } from "../header/header";
+import { PropsWithChildren } from 'react';
+import { Header } from '../header/header';
 import s from './layout.module.scss';
 
 type TProps = PropsWithChildren<{
   header?: boolean;
   title?: string;
-}>
+}>;
 
-export const Layout = ({children, header = false, title}: TProps) => {
+export const Layout = ({ children, header = false, title }: TProps) => {
   return (
     <div className={s.layout}>
-      {header && <Header title={title}/>}
-      <div className={s.layout__container}>
-        {children}
-      </div>
+      {header && <Header title={title} />}
+      <div className={s.layout__container}>{children}</div>
     </div>
-  )
-}
+  );
+};

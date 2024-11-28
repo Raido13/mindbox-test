@@ -1,11 +1,10 @@
-import React from 'react';
-import { Todos } from "../page/todos/todos";
-import { Layout } from "@shared/ui/layout/layout";
+import { Todos } from '../page/todos/todos';
+import { Layout } from '@shared/ui/layout/layout';
 
 export const App = () => {
   return (
     <Layout header={true}>
       <Todos />
     </Layout>
-  )
-}
+  );
+};

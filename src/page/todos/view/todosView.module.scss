@@ -40,13 +40,13 @@
       z-index: -1;
       border: 1px solid var(--border-color);
     }
-  
+
     &::before {
       transform: translate(10px, 10px);
       width: calc(100% - 20px);
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
-  
+
     &::after {
       transform: translate(5px, 5px);
       width: calc(100% - 10px);
@@ -59,7 +59,7 @@
     column-gap: 15px;
     padding: 15px 10px;
     background-color: var(--list-bg-color);
-    border-bottom: 2px solid var(--border-color); 
+    border-bottom: 2px solid var(--border-color);
   }
 
   &__input {

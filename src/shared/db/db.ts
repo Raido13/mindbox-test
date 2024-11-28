@@ -1,4 +1,4 @@
-import { ITodo } from "@shared/types/todo";
+import { ITodo } from '@shared/types/todo';
 
 const DB_NAME = 'TodoApp';
 const DB_VERSION = 1;
@@ -17,9 +17,9 @@ const openDB = () => {
     };
 
     req.onsuccess = () => resolve(req.result);
-    req.onerror = () => reject(req.error)
-  })
-}
+    req.onerror = () => reject(req.error);
+  });
+};
 
 export const addTodo = async (todo: ITodo) => {
   const db = await openDB();
@@ -32,7 +32,7 @@ export const addTodo = async (todo: ITodo) => {
     tx.oncomplete = () => resolve();
     tx.onerror = () => reject(tx.error);
   });
-}
+};
 
 export const getTodos = async () => {
   const db = await openDB();
@@ -43,9 +43,9 @@ export const getTodos = async () => {
     const req = store.getAll();
 
     req.onsuccess = () => resolve(req.result);
-    req.onerror = () => reject(req.error)
-  }) 
-}
+    req.onerror = () => reject(req.error);
+  });
+};
 
 export const updateTodo = async (todo: ITodo) => {
   if (!todo.id) {
@@ -62,7 +62,7 @@ export const updateTodo = async (todo: ITodo) => {
     tx.oncomplete = () => resolve();
     tx.onerror = () => reject(tx.error);
   });
-}
+};
 
 export const deleteTodo = async (id: string) => {
   const db = await openDB();
@@ -75,7 +75,7 @@ export const deleteTodo = async (id: string) => {
     tx.oncomplete = () => resolve();
     tx.onerror = () => reject(tx.error);
   });
-}
+};
 
 export const clearAllTodos = async () => {
   const db = await openDB();
@@ -88,4 +88,4 @@ export const clearAllTodos = async () => {
     tx.oncomplete = () => resolve();
     tx.onerror = () => reject(tx.error);
   });
-}
+};

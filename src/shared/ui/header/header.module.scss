@@ -10,7 +10,7 @@
 
 .header {
   @include mixins.reset;
-  
+
   &__title {
     @include mixins.reset;
     font-size: var(--font-size-medium);
